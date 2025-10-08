@@ -15,8 +15,10 @@ public class EffectTransition : Transition<IEffect?>
 {
     private static readonly BlurEffectAnimator s_blurEffectAnimator = new();
     private static readonly DropShadowEffectAnimator s_dropShadowEffectAnimator = new();
+    private static readonly ColorFilterEffectAnimator s_colorFilterEffectAnimator = new();
     private static readonly ImmutableBlurEffect s_DefaultBlur = new ImmutableBlurEffect(0);
     private static readonly ImmutableDropShadowDirectionEffect s_DefaultDropShadow = new(0, 0, 0, default, 0);
+    private static readonly ImmutableColorFilterEffect s_DefaultColorFilter = new(ColorMatrix.Identity);
 
     bool TryWithAnimator<TAnimator, TInterface>(
         IObservable<double> progress,
@@ -58,6 +60,8 @@ public class EffectTransition : Transition<IEffect?>
                     oldValue, newValue, s_DefaultBlur, out var observable)
                 || TryWithAnimator<DropShadowEffectAnimator, IDropShadowEffect>(progress, s_dropShadowEffectAnimator,
                     oldValue, newValue, s_DefaultDropShadow, out observable)
+                || TryWithAnimator<ColorFilterEffectAnimator, IColorFilterEffect>(progress, s_colorFilterEffectAnimator,
+                    oldValue, newValue, s_DefaultColorFilter, out observable)
             ))
             return observable;
         
