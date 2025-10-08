@@ -343,6 +343,39 @@
           </Animation>
         </Style.Animations>
       </Style>
+      <Style Selector="Border.Greyscale">
+        <Style.Animations>
+          <Animation Duration="0:0:3"
+                     IterationCount="Infinite"
+                     PlaybackDirection="Alternate">
+            <KeyFrame Cue="0%">
+              <Setter Property="Effect">
+                <ColorFilterEffect Matrix="{x:Static ColorMatrix.Identity}" />
+              </Setter>
+            </KeyFrame>
+            <KeyFrame Cue="25%">
+              <Setter Property="Effect">
+                <ColorFilterEffect Matrix="{x:Static ColorMatrix.Identity}" />
+              </Setter>
+            </KeyFrame>
+            <KeyFrame Cue="75%">
+              <Setter Property="Effect">
+                <ColorFilterEffect Matrix="{x:Static ColorMatrix.Greyscale}" />
+              </Setter>
+            </KeyFrame>
+            <KeyFrame Cue="100%">
+              <Setter Property="Effect">
+                <ColorFilterEffect Matrix="{x:Static ColorMatrix.Greyscale}" />
+              </Setter>
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+      <Style Selector="Border.Inversion">
+        <Setter Property="Effect">
+          <ColorFilterEffect Matrix="{x:Static ColorMatrix.Inversion}" />
+        </Setter>
+      </Style>
     </Styles>
   </UserControl.Styles>
   <Grid>
@@ -367,6 +400,12 @@
         <Border Classes="Test DropShadow" Background="Transparent" BorderThickness="4" BorderBrush="Yellow">
           <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Drop
             Shadow</TextBlock>
+        </Border>
+        <Border Classes="Test Rect9 Greyscale" Child="{x:Null}">
+          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Greyscale" Foreground="Yellow" />
+        </Border>
+        <Border Classes="Test Rect10 Inversion" Child="{x:Null}">
+          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Inversion" Foreground="Yellow" />
         </Border>
       </WrapPanel>
     </StackPanel>

@@ -13,7 +13,8 @@ internal class EffectAnimator : Animator<IEffect?>
         IObservable<bool> match, Action? onComplete)
     {
         if (TryCreateAnimator<BlurEffectAnimator, IBlurEffect>(out var animator)
-            || TryCreateAnimator<DropShadowEffectAnimator, IDropShadowEffect>(out animator))
+            || TryCreateAnimator<DropShadowEffectAnimator, IDropShadowEffect>(out animator)
+            || TryCreateAnimator<ColorFilterEffectAnimator, IColorFilterEffect>(out animator))
             return animator.Apply(animation, control, clock, match, onComplete);
 
         Logger.TryGet(LogEventLevel.Error, LogArea.Animations)?.Log(
@@ -127,5 +128,41 @@ internal class DropShadowEffectAnimator : EffectAnimatorBase<IDropShadowEffect>
             s_doubleAnimator.Interpolate(progress, oldValue.OffsetY, newValue.OffsetY),
             blur, color, opacity
         );
+    }
+}
+
+internal class ColorFilterEffectAnimator : EffectAnimatorBase<IColorFilterEffect>
+{
+    private static readonly DoubleAnimator s_doubleAnimator = new DoubleAnimator();
+
+    protected override IColorFilterEffect Interpolate(double progress, IColorFilterEffect oldValue, IColorFilterEffect newValue)
+    {
+        var m1 = oldValue.Matrix;
+        var m2 = newValue.Matrix;
+
+        // perform point-wise interpolation
+        var matrix = new ColorMatrix(
+            s_doubleAnimator.Interpolate(progress, m1.M11, m2.M11),
+            s_doubleAnimator.Interpolate(progress, m1.M12, m2.M12),
+            s_doubleAnimator.Interpolate(progress, m1.M13, m2.M13),
+            s_doubleAnimator.Interpolate(progress, m1.M14, m2.M14),
+            s_doubleAnimator.Interpolate(progress, m1.M15, m2.M15),
+            s_doubleAnimator.Interpolate(progress, m1.M21, m2.M21),
+            s_doubleAnimator.Interpolate(progress, m1.M22, m2.M22),
+            s_doubleAnimator.Interpolate(progress, m1.M23, m2.M23),
+            s_doubleAnimator.Interpolate(progress, m1.M24, m2.M24),
+            s_doubleAnimator.Interpolate(progress, m1.M25, m2.M25),
+            s_doubleAnimator.Interpolate(progress, m1.M31, m2.M31),
+            s_doubleAnimator.Interpolate(progress, m1.M32, m2.M32),
+            s_doubleAnimator.Interpolate(progress, m1.M33, m2.M33),
+            s_doubleAnimator.Interpolate(progress, m1.M34, m2.M34),
+            s_doubleAnimator.Interpolate(progress, m1.M35, m2.M35),
+            s_doubleAnimator.Interpolate(progress, m1.M41, m2.M41),
+            s_doubleAnimator.Interpolate(progress, m1.M42, m2.M42),
+            s_doubleAnimator.Interpolate(progress, m1.M43, m2.M43),
+            s_doubleAnimator.Interpolate(progress, m1.M44, m2.M44),
+            s_doubleAnimator.Interpolate(progress, m1.M45, m2.M45));
+
+        return new ImmutableColorFilterEffect(matrix);
     }
 }
