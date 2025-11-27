@@ -1,11 +1,10 @@
-using System.Numerics;
 // ReSharper disable CheckNamespace
 namespace Avalonia.Media;
 
-public sealed class ColorFilterEffect : Effect, IColorFilterEffect, IMutableEffect
+public sealed class ColorMatrixFilterEffect : Effect, IColorMatrixFilterEffect, IMutableEffect
 {
     public static readonly StyledProperty<ColorMatrix> MatrixProperty =
-        AvaloniaProperty.Register<ColorFilterEffect, ColorMatrix>(nameof(Matrix), ColorMatrix.Identity);
+        AvaloniaProperty.Register<ColorMatrixFilterEffect, ColorMatrix>(nameof(Matrix), ColorMatrix.Identity);
 
     public ColorMatrix Matrix
     {
@@ -13,5 +12,5 @@ public sealed class ColorFilterEffect : Effect, IColorFilterEffect, IMutableEffe
         set => SetValue(MatrixProperty, value);
     }
 
-    public IImmutableEffect ToImmutable() => new ImmutableColorFilterEffect(Matrix);
+    public IImmutableEffect ToImmutable() => new ImmutableColorMatrixFilterEffect(Matrix);
 }

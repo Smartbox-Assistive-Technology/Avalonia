@@ -14,7 +14,7 @@ internal class EffectAnimator : Animator<IEffect?>
     {
         if (TryCreateAnimator<BlurEffectAnimator, IBlurEffect>(out var animator)
             || TryCreateAnimator<DropShadowEffectAnimator, IDropShadowEffect>(out animator)
-            || TryCreateAnimator<ColorFilterEffectAnimator, IColorFilterEffect>(out animator))
+            || TryCreateAnimator<ColorMatrixFilterEffectAnimator, IColorMatrixFilterEffect>(out animator))
             return animator.Apply(animation, control, clock, match, onComplete);
 
         Logger.TryGet(LogEventLevel.Error, LogArea.Animations)?.Log(
@@ -131,11 +131,11 @@ internal class DropShadowEffectAnimator : EffectAnimatorBase<IDropShadowEffect>
     }
 }
 
-internal class ColorFilterEffectAnimator : EffectAnimatorBase<IColorFilterEffect>
+internal class ColorMatrixFilterEffectAnimator : EffectAnimatorBase<IColorMatrixFilterEffect>
 {
     private static readonly DoubleAnimator s_doubleAnimator = new DoubleAnimator();
 
-    protected override IColorFilterEffect Interpolate(double progress, IColorFilterEffect oldValue, IColorFilterEffect newValue)
+    protected override IColorMatrixFilterEffect Interpolate(double progress, IColorMatrixFilterEffect oldValue, IColorMatrixFilterEffect newValue)
     {
         var m1 = oldValue.Matrix;
         var m2 = newValue.Matrix;
@@ -163,6 +163,6 @@ internal class ColorFilterEffectAnimator : EffectAnimatorBase<IColorFilterEffect
             s_doubleAnimator.Interpolate(progress, m1.M44, m2.M44),
             s_doubleAnimator.Interpolate(progress, m1.M45, m2.M45));
 
-        return new ImmutableColorFilterEffect(matrix);
+        return new ImmutableColorMatrixFilterEffect(matrix);
     }
 }
