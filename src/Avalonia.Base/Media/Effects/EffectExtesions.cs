@@ -26,7 +26,7 @@ public static class EffectExtensions
             return new Thickness(Math.Max(0, 0 - rc.X),
                 Math.Max(0, 0 - rc.Y), Math.Max(0, rc.Right), Math.Max(0, rc.Bottom));
         }
-        if (effect is IColorMatrixFilterEffect)
+        if (effect is IColorMatrixEffect)
             return new Thickness(0);
 
         throw new ArgumentException("Unknown effect type: " + effect.GetType());

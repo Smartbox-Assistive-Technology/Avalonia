@@ -47,7 +47,7 @@ partial class DrawingContextImpl
             return SKImageFilter.CreateDropShadow((float)drop.OffsetX, (float)drop.OffsetY, sigma, sigma, color);
         }
 
-        if (effect is IColorMatrixFilterEffect colorFilter)
+        if (effect is IColorMatrixEffect colorFilter)
         {
             var matrixArray = colorFilter.Matrix.ToRowMajorFloatArray();
             var skColorMatrix = SKColorFilter.CreateColorMatrix(matrixArray);

@@ -50,6 +50,26 @@ namespace Avalonia.Utilities
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float ParseFloat(this ReadOnlySpan<char> span, IFormatProvider provider)
+        {
+#if NETSTANDARD2_0
+            return float.Parse(span.ToString(), provider);
+#else
+            return float.Parse(span, provider: provider);
+#endif
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryParseFloat(this ReadOnlySpan<char> span, NumberStyles style, IFormatProvider provider, out float value)
+        {
+#if NETSTANDARD2_0
+            return float.TryParse(span.ToString(), style, provider, out value);
+#else
+            return float.TryParse(span, style, provider, out value);
+#endif
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ParseDouble(this ReadOnlySpan<char> span, IFormatProvider provider)
         {
 #if NETSTANDARD2_0
