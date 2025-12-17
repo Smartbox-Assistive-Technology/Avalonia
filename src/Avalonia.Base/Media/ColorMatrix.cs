@@ -19,28 +19,28 @@ namespace Avalonia.Media
 #endif
     readonly struct ColorMatrix : IEquatable<ColorMatrix>
     {
-        private readonly double _m11;
-        private readonly double _m12;
-        private readonly double _m13;
-        private readonly double _m14;
-        private readonly double _m15;
-        private readonly double _m21;
-        private readonly double _m22;
-        private readonly double _m23;
-        private readonly double _m24;
-        private readonly double _m25;
-        private readonly double _m31;
-        private readonly double _m32;
-        private readonly double _m33;
-        private readonly double _m34;
-        private readonly double _m35;
-        private readonly double _m41;
-        private readonly double _m42;
-        private readonly double _m43;
-        private readonly double _m44;
-        private readonly double _m45;
+        private readonly float _m11;
+        private readonly float _m12;
+        private readonly float _m13;
+        private readonly float _m14;
+        private readonly float _m15;
+        private readonly float _m21;
+        private readonly float _m22;
+        private readonly float _m23;
+        private readonly float _m24;
+        private readonly float _m25;
+        private readonly float _m31;
+        private readonly float _m32;
+        private readonly float _m33;
+        private readonly float _m34;
+        private readonly float _m35;
+        private readonly float _m41;
+        private readonly float _m42;
+        private readonly float _m43;
+        private readonly float _m44;
+        private readonly float _m45;
 
-        public ColorMatrix(double m11, double m12, double m13, double m14, double m15, double m21, double m22, double m23, double m24, double m25, double m31, double m32, double m33, double m34, double m35, double m41, double m42, double m43, double m44, double m45)
+        public ColorMatrix(float m11, float m12, float m13, float m14, float m15, float m21, float m22, float m23, float m24, float m25, float m31, float m32, float m33, float m34, float m35, float m41, float m42, float m43, float m44, float m45)
         {
             _m11 = m11;
             _m12 = m12;
@@ -68,19 +68,19 @@ namespace Avalonia.Media
         /// Returns the identity matrix.
         /// </summary>
         public static ColorMatrix Identity { get; } = new ColorMatrix(
-            1.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 1.0, 0.0);
+            1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
         /// <summary>
         /// Returns the canonical grey-scale matrix.
         /// </summary>
         public static ColorMatrix Greyscale { get; } = new ColorMatrix(
-            0.21, 0.72, 0.07, 0.0, 0.0,
-            0.21, 0.72, 0.07, 0.0, 0.0,
-            0.21, 0.72, 0.07, 0.0, 0.0,
-            0.00, 0.0 , 0.0 , 1.0, 0.0);
+            0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+            0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+            0.21f, 0.72f, 0.07f, 0.0f, 0.0f,
+            0.00f, 0.0f,  0.0f,  1.0f, 0.0f);
 
         /// <summary>
         /// Returns a color-inversion matrix.
@@ -89,10 +89,10 @@ namespace Avalonia.Media
         /// Inverts the Red, Green, and Blue components without changing the Alpha component.
         /// </remarks>
         public static ColorMatrix Inversion { get; } = new ColorMatrix(
-            -1.0, 0.0,  0.0,  0.0,  1.0,
-            0.0,  -1.0, 0.0,  0.0,  1.0,
-            0.0,  0.0,  -1.0, 0.0,  1.0,
-            0.0,  0.0,  0.0,  1.0,  0.0);
+            -1.0f, 0.0f,  0.0f,  0.0f,  1.0f,
+            0.0f,  -1.0f, 0.0f,  0.0f,  1.0f,
+            0.0f,  0.0f,  -1.0f, 0.0f,  1.0f,
+            0.0f,  0.0f,  0.0f,  1.0f,  0.0f);
 
         /// <summary>
         /// Returns whether the matrix is the identity matrix.
@@ -102,102 +102,102 @@ namespace Avalonia.Media
         /// <summary>
         /// The first element of the first row (Red from Red component).
         /// </summary>
-        public double M11 => _m11;
+        public float M11 => _m11;
 
         /// <summary>
         /// The second element of the first row (Red from Green component).
         /// </summary>
-        public double M12 => _m12;
+        public float M12 => _m12;
         
         /// <summary>
         /// The third element of the first row (Red from Blue component).
         /// </summary>
-        public double M13 => _m13;
+        public float M13 => _m13;
 
         /// <summary>
         /// The fourth element of the first row (Red from Alpha component).
         /// </summary>
-        public double M14 => _m14;
+        public float M14 => _m14;
 
         /// <summary>
         /// The fifth element of the first row (Red constant component).
         /// </summary>
-        public double M15 => _m15;
+        public float M15 => _m15;
 
         /// <summary>
         /// The first element of the second row (Green from Red component).
         /// </summary>
-        public double M21 => _m21;
+        public float M21 => _m21;
 
         /// <summary>
         /// The second element of the second row (Green from Green component).
         /// </summary>
-        public double M22 => _m22;
+        public float M22 => _m22;
         
         /// <summary>
         /// The third element of the second row (Green from Blue component).
         /// </summary>
-        public double M23 => _m23;
+        public float M23 => _m23;
 
         /// <summary>
         /// The fourth element of the second row (Green from Alpha component).
         /// </summary>
-        public double M24 => _m24;
+        public float M24 => _m24;
 
         /// <summary>
         /// The fifth element of the second row (Green constant component).
         /// </summary>
-        public double M25 => _m25;
+        public float M25 => _m25;
 
         /// <summary>
         /// The first element of the third row (Blue from Red component).
         /// </summary>
-        public double M31 => _m31;
+        public float M31 => _m31;
 
         /// <summary>
         /// The second element of the third row (Blue from Green component).
         /// </summary>
-        public double M32 => _m32;
+        public float M32 => _m32;
         
         /// <summary>
         /// The third element of the third row (Blue from Blue component).
         /// </summary>
-        public double M33 => _m33;
+        public float M33 => _m33;
 
         /// <summary>
         /// The fourth element of the third row (Blue from Alpha component).
         /// </summary>
-        public double M34 => _m34;
+        public float M34 => _m34;
 
         /// <summary>
         /// The fifth element of the third row (Blue constant component).
         /// </summary>
-        public double M35 => _m35;
+        public float M35 => _m35;
 
         /// <summary>
         /// The first element of the fourth row (Alpha from Red component).
         /// </summary>
-        public double M41 => _m41;
+        public float M41 => _m41;
 
         /// <summary>
         /// The second element of the fourth row (Alpha from Green component).
         /// </summary>
-        public double M42 => _m42;
+        public float M42 => _m42;
         
         /// <summary>
         /// The third element of the fourth row (Alpha from Blue component).
         /// </summary>
-        public double M43 => _m43;
+        public float M43 => _m43;
 
         /// <summary>
         /// The fourth element of the fourth row (Alpha from Alpha component).
         /// </summary>
-        public double M44 => _m44;
+        public float M44 => _m44;
 
         /// <summary>
         /// The fifth element of the fourth row (Alpha constant component).
         /// </summary>
-        public double M45 => _m45;
+        public float M45 => _m45;
 
         /// <summary>
         /// Multiplies two matrices together and returns the resulting matrix.
@@ -250,17 +250,6 @@ namespace Avalonia.Media
         public static bool operator !=(ColorMatrix value1, ColorMatrix value2)
         {
             return !value1.Equals(value2);
-        }
-
-        /// <summary>
-        /// Creates a translation matrix from the given X and Y components.
-        /// </summary>
-        /// <param name="xPosition">The X position.</param>
-        /// <param name="yPosition">The Y position.</param>
-        /// <returns>A translation matrix.</returns>
-        public static Matrix CreateTranslation(double xPosition, double yPosition)
-        {
-            return new Matrix(1.0, 0.0, 0.0, 1.0, xPosition, yPosition);
         }
 
         /// <summary>
@@ -349,32 +338,32 @@ namespace Avalonia.Media
         /// <summary>
         /// Parses a <see cref="Matrix"/> string.
         /// </summary>
-        /// <param name="s">Twenty comma-delimited double values that describe the new <see cref="ColorMatrix"/></param>
+        /// <param name="s">Twenty comma-delimited float values that describe the new <see cref="ColorMatrix"/></param>
         /// <returns>The <see cref="ColorMatrix"/>.</returns>
         public static ColorMatrix Parse(string s)
         {
-            using (var tokenizer = new SpanStringTokenizer(s, CultureInfo.InvariantCulture, exceptionMessage: "Invalid Matrix."))
+            using (var tokenizer = new SpanStringTokenizer(s, CultureInfo.InvariantCulture, exceptionMessage: "Invalid ColorMatrix."))
             {
-                var v1 = tokenizer.ReadDouble();
-                var v2 = tokenizer.ReadDouble();
-                var v3 = tokenizer.ReadDouble();
-                var v4 = tokenizer.ReadDouble();
-                var v5 = tokenizer.ReadDouble();
-                var v6 = tokenizer.ReadDouble();
-                var v7 = tokenizer.ReadDouble();
-                var v8 = tokenizer.ReadDouble();
-                var v9 = tokenizer.ReadDouble();
-                var v10 = tokenizer.ReadDouble();
-                var v11 = tokenizer.ReadDouble();
-                var v12 = tokenizer.ReadDouble();
-                var v13 = tokenizer.ReadDouble();
-                var v14 = tokenizer.ReadDouble();
-                var v15 = tokenizer.ReadDouble();
-                var v16 = tokenizer.ReadDouble();
-                var v17 = tokenizer.ReadDouble();
-                var v18 = tokenizer.ReadDouble();
-                var v19 = tokenizer.ReadDouble();
-                var v20 = tokenizer.ReadDouble();
+                var v1 = tokenizer.ReadFloat();
+                var v2 = tokenizer.ReadFloat();
+                var v3 = tokenizer.ReadFloat();
+                var v4 = tokenizer.ReadFloat();
+                var v5 = tokenizer.ReadFloat();
+                var v6 = tokenizer.ReadFloat();
+                var v7 = tokenizer.ReadFloat();
+                var v8 = tokenizer.ReadFloat();
+                var v9 = tokenizer.ReadFloat();
+                var v10 = tokenizer.ReadFloat();
+                var v11 = tokenizer.ReadFloat();
+                var v12 = tokenizer.ReadFloat();
+                var v13 = tokenizer.ReadFloat();
+                var v14 = tokenizer.ReadFloat();
+                var v15 = tokenizer.ReadFloat();
+                var v16 = tokenizer.ReadFloat();
+                var v17 = tokenizer.ReadFloat();
+                var v18 = tokenizer.ReadFloat();
+                var v19 = tokenizer.ReadFloat();
+                var v20 = tokenizer.ReadFloat();
 
                 return new ColorMatrix(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20);
             }
@@ -387,26 +376,26 @@ namespace Avalonia.Media
         internal float[] ToRowMajorFloatArray()
         {
             return [
-                (float)_m11,
-                (float)_m12,
-                (float)_m13,
-                (float)_m14,
-                (float)_m15,
-                (float)_m21,
-                (float)_m22,
-                (float)_m23,
-                (float)_m24,
-                (float)_m25,
-                (float)_m31,
-                (float)_m32,
-                (float)_m33,
-                (float)_m34,
-                (float)_m35,
-                (float)_m41,
-                (float)_m42,
-                (float)_m43,
-                (float)_m44,
-                (float)_m45,
+                _m11,
+                _m12,
+                _m13,
+                _m14,
+                _m15,
+                _m21,
+                _m22,
+                _m23,
+                _m24,
+                _m25,
+                _m31,
+                _m32,
+                _m33,
+                _m34,
+                _m35,
+                _m41,
+                _m42,
+                _m43,
+                _m44,
+                _m45,
             ];
         }
     }

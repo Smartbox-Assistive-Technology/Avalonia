@@ -350,22 +350,22 @@
                      PlaybackDirection="Alternate">
             <KeyFrame Cue="0%">
               <Setter Property="Effect">
-                <ColorMatrixFilterEffect Matrix="{x:Static ColorMatrix.Identity}" />
+                <ColorMatrixEffect Matrix="{x:Static ColorMatrix.Identity}" />
               </Setter>
             </KeyFrame>
             <KeyFrame Cue="25%">
               <Setter Property="Effect">
-                <ColorMatrixFilterEffect Matrix="{x:Static ColorMatrix.Identity}" />
+                <ColorMatrixEffect Matrix="{x:Static ColorMatrix.Identity}" />
               </Setter>
             </KeyFrame>
             <KeyFrame Cue="75%">
               <Setter Property="Effect">
-                <ColorMatrixFilterEffect Matrix="{x:Static ColorMatrix.Greyscale}" />
+                <ColorMatrixEffect Matrix="{x:Static ColorMatrix.Greyscale}" />
               </Setter>
             </KeyFrame>
             <KeyFrame Cue="100%">
               <Setter Property="Effect">
-                <ColorMatrixFilterEffect Matrix="{x:Static ColorMatrix.Greyscale}" />
+                <ColorMatrixEffect Matrix="{x:Static ColorMatrix.Greyscale}" />
               </Setter>
             </KeyFrame>
           </Animation>
@@ -373,7 +373,7 @@
       </Style>
       <Style Selector="Border.Inversion">
         <Setter Property="Effect">
-          <ColorMatrixFilterEffect Matrix="{x:Static ColorMatrix.Inversion}" />
+          <ColorMatrixEffect Matrix="{x:Static ColorMatrix.Inversion}" />
         </Setter>
       </Style>
     </Styles>

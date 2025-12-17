@@ -104,6 +104,30 @@ namespace Avalonia.Utilities
             }
         }
 
+        public float ReadFloat(char? separator = null)
+        {
+            if (!TryReadFloat(out var result, separator))
+            {
+                throw GetFormatException();
+            }
+
+            return result;
+        }
+
+        public bool TryReadFloat(out float result, char? separator = null)
+        {
+            if (TryReadSpan(out var stringResult, separator) &&
+                SpanHelpers.TryParseFloat(stringResult, NumberStyles.Float, _formatProvider, out result))
+            {
+                return true;
+            }
+            else
+            {
+                result = default;
+                return false;
+            }
+        }
+
         public double ReadDouble(char? separator = null)
         {
             if (!TryReadDouble(out var result, separator))

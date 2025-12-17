@@ -4,19 +4,19 @@ using Avalonia.Animation.Animators;
 
 namespace Avalonia.Media;
 
-public interface IColorMatrixFilterEffect : IEffect
+public interface IColorMatrixEffect : IEffect
 {
     ColorMatrix Matrix { get; }
 }
 
-public class ImmutableColorMatrixFilterEffect : IColorMatrixFilterEffect, IImmutableEffect
+public class ImmutableColorMatrixEffect : IColorMatrixEffect, IImmutableEffect
 {
-    static ImmutableColorMatrixFilterEffect()
+    static ImmutableColorMatrixEffect()
     {
         EffectAnimator.EnsureRegistered();
     }
 
-    public ImmutableColorMatrixFilterEffect(ColorMatrix matrix)
+    public ImmutableColorMatrixEffect(ColorMatrix matrix)
     {
         Matrix = matrix;
     }
@@ -24,5 +24,5 @@ public class ImmutableColorMatrixFilterEffect : IColorMatrixFilterEffect, IImmut
     public ColorMatrix Matrix { get; }
 
     public bool Equals(IEffect? other) =>
-        other is IColorMatrixFilterEffect colorFilter && colorFilter.Matrix == Matrix;
+        other is IColorMatrixEffect colorFilter && colorFilter.Matrix == Matrix;
 }
