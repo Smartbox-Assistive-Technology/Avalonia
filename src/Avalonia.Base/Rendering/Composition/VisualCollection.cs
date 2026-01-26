@@ -8,6 +8,8 @@ namespace Avalonia.Rendering.Composition
     /// </summary>
     public partial class CompositionVisualCollection : CompositionObject
     {
+        public bool SuppressParentModifications = false;
+
         private readonly CompositionVisual _owner;
         internal CompositionVisualCollection(CompositionVisual parent, ServerCompositionVisualCollection server) : base(parent.Compositor, server)
         {
@@ -59,12 +61,16 @@ namespace Avalonia.Rendering.Composition
 
         partial void OnBeforeClear()
         {
+            if (SuppressParentModifications)
+                return;
             foreach (var i in this)
                 i.Parent = null;
         }
 
         partial void OnBeforeAdded(CompositionVisual item)
         {
+            if (SuppressParentModifications)
+                return;
             if (item.Parent != null)
                 throw new InvalidOperationException("Visual already has a parent");
             item.Parent = _owner;

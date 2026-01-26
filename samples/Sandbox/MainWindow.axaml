@@ -1,4 +1,53 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+        xmlns:local="using:Sandbox"
         x:Class="Sandbox.MainWindow">
+
+  <Grid RenderOptions.BitmapInterpolationMode="HighQuality" Grid.RowDefinitions="auto,*">
+    <!--<Grid.Background>
+      <ImageBrush Source="avares://HomePerfAvBleh/Assets/WinCath30Je6-4836wiki.jpg" Stretch="Fill" />
+    </Grid.Background>-->
+    <!-- Seem to get markedly better performance by using an Image rather than an ImageBrush Background -->
+    <Image Grid.RowSpan="2" RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Sandbox/Assets/WinCath30Je6-4836wiki.jpg" Stretch="Fill" />
+
+    <StackPanel Grid.Row="0" HorizontalAlignment="Left">
+      <TextBlock Text="Check this on to enable the hideous hack" />
+      <CheckBox Content="EnabledSuppressParentModificationsHack" IsChecked="{Binding $parent[Window].EnabledSuppressParentModificationsHack}" />
+    </StackPanel>
+
+    <UniformGrid Grid.Row="1" ClipToBounds="True">
+      <UniformGrid.Styles>
+        <Style Selector="Border">
+          <Setter Property="BorderThickness" Value="2" />
+          <Setter Property="BorderBrush" Value="Black" />
+          <Setter Property="Background" Value="Blue" />
+          <Setter Property="CornerRadius" Value="5" />
+          <Setter Property="Child">
+            <Template>
+              <Image Source="avares://Sandbox/Assets/WinCath30Je6-4836wiki-small.jpg" />
+            </Template>
+          </Setter>
+          <Setter Property="Margin" Value="5" />
+          <Setter Property="ZIndex" Value="0" />
+          <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="Green" />
+            <Setter Property="ZIndex" Value="1" />
+            <Setter Property="Margin" Value="-10" />
+          </Style>
+        </Style>
+      </UniformGrid.Styles>
+
+      <!-- 10 * 10 grid -->
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+      <Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border /><Border />
+    </UniformGrid>
+  </Grid>
 </Window>

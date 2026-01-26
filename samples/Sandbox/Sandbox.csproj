@@ -10,6 +10,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Avalonia.Diagnostics\Avalonia.Diagnostics.csproj" />
+    <!-- Image of Winchester Cathedral by Antony McCallum, 2006 (https://commons.wikimedia.org/wiki/File:WinCath30Je6-4836wiki.jpg) -->
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Avalonia.Controls.ColorPicker\Avalonia.Controls.ColorPicker.csproj" />
     <ProjectReference Include="..\..\src\Avalonia.Fonts.Inter\Avalonia.Fonts.Inter.csproj" />
     <ProjectReference Include="..\..\src\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />

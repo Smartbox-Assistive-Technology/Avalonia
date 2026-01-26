@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Collections;
 using Avalonia.Collections.Pooled;
 using Avalonia.Media;
@@ -9,6 +11,8 @@ namespace Avalonia;
 
 public partial class Visual
 {
+    public static bool EnabledSuppressParentModificationsHack { get; set; } = false;
+
     internal CompositionDrawListVisual? CompositionVisual { get; private set; }
     internal CompositionVisual? ChildCompositionVisual { get; set; }
     
@@ -102,10 +106,26 @@ public partial class Visual
                 return;
             }
         }
-        
-        compositionChildren.Clear();
+
         if (sortedChildren != null)
         {
+            // if EnabledSuppressParentModificationsHack is enabled,
+            // then we check that the new list of children is the same
+            // as the old list of children, and if it is, we suppress
+            // parent modification in the CompositionVisualCollection
+            var current = EnabledSuppressParentModificationsHack && !compositionChildren.SuppressParentModifications
+                ? new HashSet<CompositionVisual>(compositionChildren)
+                : null; // don't generate the hashset if we don't need it
+
+            var suppressParentChanges = EnabledSuppressParentModificationsHack
+                && !compositionChildren.SuppressParentModifications
+                && sortedChildren.Count(ch => ch.visual.CompositionVisual != null) == current!.Count
+                && sortedChildren.All(ch => ch.visual.CompositionVisual == null || current.Contains(ch.visual.CompositionVisual));
+
+            if (suppressParentChanges)
+                compositionChildren.SuppressParentModifications = true;
+
+            compositionChildren.Clear();
             foreach (var ch in sortedChildren)
             {
                 var compositionChild = ch.visual.CompositionVisual;
@@ -113,14 +133,20 @@ public partial class Visual
                     compositionChildren.Add(compositionChild);
             }
             sortedChildren.Dispose();
+
+            if (suppressParentChanges)
+                compositionChildren.SuppressParentModifications = false;
         }
         else
+        {
+            compositionChildren.Clear();
             foreach (var ch in visualChildren)
             {
                 var compositionChild = ch.CompositionVisual;
                 if (compositionChild != null)
                     compositionChildren.Add(compositionChild);
             }
+        }
 
         if (childVisual != null)
             compositionChildren.Add(childVisual);
