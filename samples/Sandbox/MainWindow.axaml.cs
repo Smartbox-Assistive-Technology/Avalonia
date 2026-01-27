@@ -1,9 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
-using Avalonia.Input.TextInput;
-using Avalonia.Markup.Xaml;
-using Avalonia.Win32.WinRT.Composition;
 
 namespace Sandbox
 {
@@ -12,6 +7,11 @@ namespace Sandbox
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void SmallCanvas_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        {
+            SmallCanvas.Children.Move(0, SmallCanvas.Children.Count - 1);
         }
     }
 }

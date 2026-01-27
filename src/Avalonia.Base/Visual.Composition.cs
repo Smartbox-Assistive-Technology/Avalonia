@@ -139,6 +139,22 @@ public partial class Visual
         }
         else
         {
+            // if EnabledSuppressParentModificationsHack is enabled,
+            // then we check that the new list of children is the same
+            // as the old list of children, and if it is, we suppress
+            // parent modification in the CompositionVisualCollection
+            var current = EnabledSuppressParentModificationsHack && !compositionChildren.SuppressParentModifications
+                ? new HashSet<CompositionVisual>(compositionChildren)
+                : null; // don't generate the hashset if we don't need it
+
+            var suppressParentChanges = EnabledSuppressParentModificationsHack
+                && !compositionChildren.SuppressParentModifications
+                && visualChildren.Count(ch => ch.CompositionVisual != null) == current!.Count
+                && visualChildren.All(ch => ch.CompositionVisual == null || current.Contains(ch.CompositionVisual));
+
+            if (suppressParentChanges)
+                compositionChildren.SuppressParentModifications = true;
+
             compositionChildren.Clear();
             foreach (var ch in visualChildren)
             {
@@ -146,6 +162,9 @@ public partial class Visual
                 if (compositionChild != null)
                     compositionChildren.Add(compositionChild);
             }
+
+            if (suppressParentChanges)
+                compositionChildren.SuppressParentModifications = false;
         }
 
         if (childVisual != null)

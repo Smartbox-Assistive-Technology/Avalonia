@@ -3,19 +3,29 @@
         xmlns:local="using:Sandbox"
         x:Class="Sandbox.MainWindow">
 
-  <Grid RenderOptions.BitmapInterpolationMode="HighQuality" Grid.RowDefinitions="auto,*">
+  <Grid RenderOptions.BitmapInterpolationMode="HighQuality" Grid.RowDefinitions="auto,*" Grid.ColumnDefinitions="auto,*">
     <!--<Grid.Background>
       <ImageBrush Source="avares://HomePerfAvBleh/Assets/WinCath30Je6-4836wiki.jpg" Stretch="Fill" />
     </Grid.Background>-->
     <!-- Seem to get markedly better performance by using an Image rather than an ImageBrush Background -->
-    <Image Grid.RowSpan="2" RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Sandbox/Assets/WinCath30Je6-4836wiki.jpg" Stretch="Fill" />
+    <Image Grid.RowSpan="2" Grid.ColumnSpan="2" RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Sandbox/Assets/WinCath30Je6-4836wiki.jpg" Stretch="Fill" />
 
     <StackPanel Grid.Row="0" HorizontalAlignment="Left">
       <TextBlock Text="Check this on to enable the hideous hack" />
       <CheckBox Content="EnabledSuppressParentModificationsHack" IsChecked="{Binding $parent[Window].EnabledSuppressParentModificationsHack}" />
     </StackPanel>
 
-    <UniformGrid Grid.Row="1" ClipToBounds="True">
+    <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+      <TextBlock Text="Click the colors to reorder the rectangles: with the hack enabled, they will not repaint" />
+      <Canvas x:Name="SmallCanvas" Height="20" HorizontalAlignment="Stretch" PointerPressed="SmallCanvas_PointerPressed">
+        <Rectangle Canvas.Left="0" Canvas.Right="0" Width="50" Height="20" Fill="Blue" />
+        <Rectangle Canvas.Left="10" Canvas.Right="0" Width="50" Height="20" Fill="Red" />
+        <Rectangle Canvas.Left="20" Canvas.Right="0" Width="50" Height="20" Fill="Green" />
+        <Rectangle Canvas.Left="30" Canvas.Right="0" Width="50" Height="20" Fill="Yellow" />
+      </Canvas>
+    </StackPanel>
+
+    <UniformGrid Grid.Row="1" Grid.ColumnSpan="2" ClipToBounds="True" x:Name="LargeGrid">
       <UniformGrid.Styles>
         <Style Selector="Border">
           <Setter Property="BorderThickness" Value="2" />
