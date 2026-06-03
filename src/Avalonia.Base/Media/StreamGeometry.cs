@@ -1,4 +1,3 @@
-using System;
 using Avalonia.Platform;
 
 namespace Avalonia.Media
@@ -47,7 +46,17 @@ namespace Avalonia.Media
         /// <inheritdoc/>
         public override Geometry Clone()
         {
-            return new StreamGeometry(((IStreamGeometryImpl)PlatformImpl!).Clone());
+            if (PlatformImpl is ITransformedGeometryImpl transformedGeometryImpl)
+            {
+                return new StreamGeometry(((IStreamGeometryImpl)transformedGeometryImpl.SourceGeometry).Clone())
+                {
+                    Transform = Transform
+                };
+            }
+            else
+            {
+                return new StreamGeometry(((IStreamGeometryImpl)PlatformImpl!).Clone());
+            }
         }
 
         /// <summary>
@@ -58,7 +67,14 @@ namespace Avalonia.Media
         /// </returns>
         public StreamGeometryContext Open()
         {
-            return new StreamGeometryContext(((IStreamGeometryImpl)PlatformImpl!).Open());
+            if (PlatformImpl is ITransformedGeometryImpl transformedGeometryImpl)
+            {
+                return new StreamGeometryContext(((IStreamGeometryImpl)transformedGeometryImpl.SourceGeometry).Open());
+            }
+            else
+            {
+                return new StreamGeometryContext(((IStreamGeometryImpl)PlatformImpl!).Open());
+            }
         }
 
         /// <inheritdoc/>

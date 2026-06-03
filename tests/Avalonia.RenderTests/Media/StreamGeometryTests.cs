@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
+using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Xunit;
 
 namespace Avalonia.Skia.RenderTests
@@ -47,6 +44,31 @@ namespace Avalonia.Skia.RenderTests
                         grid.Children.Add(pathShape);
                     }
             await RenderToFile(grid);
+        }
+
+        [Fact]
+        public void Can_Clone_StreamGeometry_With_Transform()
+        {
+            var streamGeometry = StreamGeometry.Parse("M10,190 l190,-190 M0,0M200,200");
+            streamGeometry.Transform = new TranslateTransform(50, 150);
+
+            var cloned = streamGeometry.Clone();
+
+            Assert.Equal(streamGeometry.Transform.Value, cloned.Transform?.Value);
+        }
+
+        [Fact]
+        public void Can_Open_StreamGeometry_With_Transform()
+        {
+            var streamGeometry = StreamGeometry.Parse("M10,190 l190,-190 M0,0M200,200");
+            streamGeometry.Transform = new TranslateTransform(50, 150);
+
+            using (var context = streamGeometry.Open())
+            {
+                context.BeginFigure(new(0, 0), true);
+                context.LineTo(new (100, 100));
+                context.EndFigure(true);
+            }
         }
     }
 }
